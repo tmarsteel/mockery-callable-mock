@@ -6,11 +6,25 @@ use Akamon\MockeryCallableMock\MockeryCallableMock;
 
 class MockeryCallableMockTest extends \PHPUnit_Framework_TestCase
 {
+    public function testShouldBeCalled()
+    {
+        $mock = new MockeryCallableMock();
+
+        $this->assertInstanceOf('Mockery\CompositeExpectation', $mock->shouldBeCalled());
+    }
+
+    public function testCanBeCalled()
+    {
+        $mock = new MockeryCallableMock();
+
+        $this->assertInstanceOf('Mockery\CompositeExpectation', $mock->canBeCalled());
+    }
+
     public function testOnceWithNoArgs()
     {
         $mock = new MockeryCallableMock();
 
-        $mock->should()->withNoArgs()->once();
+        $mock->shouldBeCalled()->withNoArgs()->once();
         $mock();
     }
 
@@ -18,7 +32,7 @@ class MockeryCallableMockTest extends \PHPUnit_Framework_TestCase
     {
         $mock = new MockeryCallableMock();
 
-        $mock->should()->with('foo')->once();
+        $mock->shouldBeCalled()->with('foo')->once();
         $mock('foo');
     }
 
@@ -26,7 +40,7 @@ class MockeryCallableMockTest extends \PHPUnit_Framework_TestCase
     {
         $mock = new MockeryCallableMock();
 
-        $mock->should()->with('foo', 'bar')->twice();
+        $mock->shouldBeCalled()->with('foo', 'bar')->twice();
         $mock('foo', 'bar');
         $mock('foo', 'bar');
     }
@@ -35,7 +49,7 @@ class MockeryCallableMockTest extends \PHPUnit_Framework_TestCase
     {
         $mock = new MockeryCallableMock();
 
-        $mock->should()->andReturn('foo');
+        $mock->shouldBeCalled()->andReturn('foo');
         $this->assertSame('foo', $mock());
     }
 }
