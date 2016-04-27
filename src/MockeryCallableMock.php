@@ -2,6 +2,7 @@
 
 namespace Akamon\MockeryCallableMock;
 
+use Mockery\Exception\InvalidCountException;
 use Mockery\MockInterface;
 
 class MockeryCallableMock
@@ -14,24 +15,37 @@ class MockeryCallableMock
         $this->mock = \Mockery::mock($this);
     }
 
+    /**
+     * @return \Mockery\Expectation
+     */
     public function shouldBeCalled()
     {
         return $this->mock->shouldReceive('__invoke');
     }
 
+    /**
+     * @return \Mockery\Expectation
+     */
     public function canBeCalled()
     {
         return $this->mock->shouldReceive('__invoke');
     }
 
+    /**
+     * @return \Mockery\Expectation
+     */
     public function shouldHaveBeenCalled()
     {
         return $this->mock->shouldHaveReceived('__invoke');
     }
-    
-    public function shouldNotHaveBeenCalled()
+
+    /**
+     * @return void
+     * @throws InvalidCountException
+     */
+    public function shouldNotHaveBeenCalled(...$args)
     {
-        return $this->mock->shouldNotHaveReceived('__invoke');
+        $this->mock->shouldNotHaveReceived('__invoke', empty($args)? null : $args);
     }
 
     /**
