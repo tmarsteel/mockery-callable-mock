@@ -30,11 +30,19 @@ $retval = $mock();
 $stub = new MockeryCallableMock();
 
 $stub->canBeCalled()->with('foo')->andReturn('bar');
+
+// verifying calls
+$mock = new MockeryCallableMock();
+$mock('bar);
+
+$mock->shouldHaveBeenCalled()->with('bar');
+$mock->shouldNotHaveBeenCalled('foo');
 ```
 
-## Author
+## Authors
 
 Pablo Díez - <pablodip@gmail.com>
+Tobias Marstaller <tobias.marstaller@gmail.com>
 
 ## License
 
