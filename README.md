@@ -33,7 +33,7 @@ $stub->canBeCalled()->with('foo')->andReturn('bar');
 
 // verifying calls
 $mock = new MockeryCallableMock();
-$mock('bar);
+$mock('bar');
 
 $mock->shouldHaveBeenCalled()->with('bar');
 $mock->shouldNotHaveBeenCalled('foo');
