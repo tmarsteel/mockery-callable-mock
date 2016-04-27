@@ -1,4 +1,4 @@
-# Akamon Mockery Callable Mock
+# Mockery Callable Mock
 
 ```php
 <?php
@@ -38,6 +38,10 @@ $mock('bar');
 $mock->shouldHaveBeenCalled()->with('bar');
 $mock->shouldNotHaveBeenCalled('foo');
 ```
+
+## Requirements
+
+PHP 5.6+
 
 ## Authors
 
