@@ -24,6 +24,16 @@ class MockeryCallableMock
         return $this->mock->shouldReceive('__invoke');
     }
 
+    public function shouldHaveBeenCalled()
+    {
+        return $this->mock->shouldHaveReceived('__invoke');
+    }
+    
+    public function shouldNotHaveBeenCalled()
+    {
+        return $this->mock->shouldNotHaveReceived('__invoke');
+    }
+
     /**
      * @deprecated
      */
