@@ -42,7 +42,7 @@ $mock->shouldNotHaveBeenCalled('foo');
 ## Authors
 
 * Pablo Díez - <pablodip@gmail.com>
-* Tobias Marstaller <tobias.marstaller@gmail.com>
+* Tobias Marstaller - <tobias.marstaller@gmail.com>
 
 ## License
 
