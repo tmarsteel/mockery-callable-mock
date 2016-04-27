@@ -3,6 +3,7 @@
 namespace Akamon\MockeryCallableMock\Tests;
 
 use Akamon\MockeryCallableMock\MockeryCallableMock;
+use Mockery\Exception\InvalidCountException;
 
 class MockeryCallableMockTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,5 +52,51 @@ class MockeryCallableMockTest extends \PHPUnit_Framework_TestCase
 
         $mock->shouldBeCalled()->andReturn('foo');
         $this->assertSame('foo', $mock());
+    }
+
+    public function testShouldHaveBeenCalled()
+    {
+        $mock = new MockeryCallableMock();
+
+        $mock->canBeCalled()->withAnyArgs()->andReturn('foo');
+        $mock('bar');
+
+        $mock->shouldHaveBeenCalled()->with('bar');
+    }
+
+    /**
+ * @expectedException \Mockery\Exception\InvalidCountException
+ */
+    public function testShouldNotHaveBeenCalled()
+    {
+        $mock = new MockeryCallableMock();
+
+        $mock->canBeCalled()->withAnyArgs()->andReturn('foo');
+        $mock();
+
+        $mock->shouldNotHaveBeenCalled();
+    }
+
+    /**
+     * @expectedException \Mockery\Exception\InvalidCountException
+     */
+    public function testShouldNotHaveBeenCalledWithMatchingArgs()
+    {
+        $mock = new MockeryCallableMock();
+
+        $mock->canBeCalled()->withAnyArgs()->andReturn('foo');
+        $mock('bar');
+
+        $mock->shouldNotHaveBeenCalled('bar');
+    }
+    
+    public function testShouldNotHaveBeenCalledWithNonMatchingArgs()
+    {
+        $mock = new MockeryCallableMock();
+
+        $mock->canBeCalled()->withAnyArgs()->andReturn('foo');
+        $mock('bar');
+
+        $mock->shouldNotHaveBeenCalled('bob');
     }
 }
