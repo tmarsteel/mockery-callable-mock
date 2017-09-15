@@ -1,5 +1,5 @@
 {
-    "name": "akamon/mockery-callable-mock",
+    "name": "tmarsteel/mockery-callable-mock",
     "description": "Mockery Callable Mock",
     "keywords": ["mockery", "callable", "mock"],
     "type": "library",
@@ -8,6 +8,10 @@
         {
             "name": "Pablo Díez",
             "email": "pablodip@gmail.com"
+        },
+        {
+            "name": "Tobias Marstaller",
+            "email": "tobias.marstaller@gmail.com"
         }
     ],
     "require": {
