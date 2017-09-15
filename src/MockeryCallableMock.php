@@ -2,6 +2,8 @@
 
 namespace Akamon\MockeryCallableMock;
 
+use Akamon\MockeryCallableMock\Tests\MockableCallable;
+use Mockery;
 use Mockery\Exception\InvalidCountException;
 use Mockery\MockInterface;
 
@@ -10,9 +12,10 @@ class MockeryCallableMock
     /** @var MockInterface */
     private $mock;
 
-    public function __construct()
+    public function __construct(callable $action = null)
     {
-        $this->mock = \Mockery::mock($this);
+        $actionCallable = $action ?: function() {};
+        $this->mock = Mockery::mock(new MockableCallable($actionCallable));
     }
 
     /**
@@ -58,6 +61,6 @@ class MockeryCallableMock
 
     public function __invoke()
     {
-        return call_user_func_array($this->mock, func_get_args());
+        return call_user_func_array([$this->mock, '__invoke'], func_get_args());
     }
 }

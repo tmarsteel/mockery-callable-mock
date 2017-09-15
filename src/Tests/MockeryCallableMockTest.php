@@ -65,8 +65,8 @@ class MockeryCallableMockTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
- * @expectedException \Mockery\Exception\InvalidCountException
- */
+     * @expectedException \Mockery\Exception\InvalidCountException
+     */
     public function testShouldNotHaveBeenCalled()
     {
         $mock = new MockeryCallableMock();
@@ -98,5 +98,20 @@ class MockeryCallableMockTest extends \PHPUnit_Framework_TestCase
         $mock('bar');
 
         $mock->shouldNotHaveBeenCalled('bob');
+    }
+
+    public function testSpyingFunctionality() {
+        $actionCalled = false;
+        $action = function() use (&$actionCalled) {
+            $actionCalled = true;
+            return "i ran!";
+        };
+
+        $mock = new MockeryCallableMock($action);
+        $returnValue = $mock();
+
+        $this->assertEquals("i ran!", $returnValue);
+        $this->assertTrue($actionCalled);
+        $mock->shouldHaveBeenCalled();
     }
 }
